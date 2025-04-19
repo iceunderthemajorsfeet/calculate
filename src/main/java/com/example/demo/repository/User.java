@@ -1,9 +1,9 @@
 package com.example.demo.repository;
 
-
+import com.vladmihalcea.hibernate.type.json.JsonType;
+import org.hibernate.annotations.Type;
 import jakarta.persistence.*;
-//import javax.persistence.*;
-import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "staff")
@@ -12,22 +12,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //@Column(name = "name")
     private String name;
     private String email;
-    //private Integer salary;
     private Integer month;
     @Column(name = "amountvacationday")
     private Integer amountVacationDay;
     @Column(name = "vacationday")
     private Integer vacationDay;
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private Map<Integer, Long> salary;
 
-    @Column(columnDefinition = "JSON")
-    @Convert(converter = HashMapToJsonConverter.class)
-    private HashMap<Integer, Long> salary;
-
-
-    public User(Long id, String name, String email, HashMap<Integer, Long> salary, Integer vacationDay, Integer amountVacationDay, Integer month) {
+    public User(Long id, String name, String email, Map<Integer, Long> salary, Integer vacationDay, Integer amountVacationDay, Integer month) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -62,10 +58,10 @@ public class User {
         this.email = email;
     }
 
-    public HashMap<Integer, Long> getSalary() {
+    public Map<Integer, Long> getSalary() {
         return salary;
     }
-    public void setSalary(HashMap<Integer, Long> salary) {
+    public void setSalary(Map<Integer, Long> salary) {
         this.salary = salary;
     }
 
@@ -99,7 +95,7 @@ public class User {
                 ", salary=" + salary +
                 ", vacationDay=" + vacationDay +
                 ", month=" + month +
-                ", amountVacationDay=" + amountVacationDay +
+                ", salary=" + salary +
                 '}';
     }
 }

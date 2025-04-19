@@ -1,12 +1,9 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.repository.User;
 import com.example.demo.service.UserService;
-
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 @RestController
@@ -39,35 +36,10 @@ public class UserController {
             @PathVariable Long id,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) HashMap<Integer, Long> salary,
+            @RequestBody Map<Integer, Long> salary,
             @RequestParam(required = false) Integer vacationDay
 
     ){
         userService.update(id, email, name, salary, vacationDay);
     }
-//    @PutMapping("{id}")
-//    public User update(
-//            @PathVariable Long id,
-//            @RequestBody UserUpdateRequest request
-//    ) {
-//        return userService.update(
-//                id,
-//                request.getEmail(),
-//                request.getName(),
-//                request.getSalary(),
-//                request.getVacationDay()
-//        );
-//    }
-//
-//        // DTO для запроса обновления
-//        @Getter
-//        @Setter
-//        @NoArgsConstructor
-//        @AllArgsConstructor
-//        public static class UserUpdateRequest {
-//            private String email;
-//            private String name;
-//            private HashMap<Integer, Long> salary;
-//            private Integer vacationDay;
-//        }
 }
